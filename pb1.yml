@@ -26,8 +26,8 @@ tasks:
 
   - name: add user
     ansible.builtin.user:
-      name: {{item}}
-      comment: {{item}} account
+      name: "{{ item }}"
+      comment: "{{ item }} account" 
       uid: 1001
       state: present
       password: "{{ password_var }}"
