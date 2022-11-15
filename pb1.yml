@@ -13,6 +13,8 @@
           3937386266656636350a373563326537336336653939663733376662663761323532356239386330
           3133
 
+    ansible_host_key_checking: false
+
   vars_files:
     - vars/users.yml
 
