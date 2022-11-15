@@ -1,11 +1,11 @@
 ---
-name: Yale workshop day 2
-hosts: "{{ variable_host | default('localhost')}}"
-gather_facts: false
-become: true
+- name: Yale workshop day 2
+  hosts: "{{ variable_host | default('localhost')}}"
+  gather_facts: false
+  become: true
 
-vars:
-  password_var: !vault |
+  vars:
+    password_var: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           62306633373536333030653232373238616333336366613037623635366138656539666538666664
           3133393363666635366138363732336330373062353530620a383037376432343366646337643665
@@ -13,26 +13,26 @@ vars:
           3937386266656636350a373563326537336336653939663733376662663761323532356239386330
           3133
 
-vars_files:
- - vars/users.yml
+  vars_files:
+    - vars/users.yml
 
-tasks:
-  - name: add group
-    ansible.builtin.group:
+  tasks:
+    - name: Add foo group
+      ansible.builtin.group:
        name: foo
        gid: 2000
        state: present
 
 
-  - name: add user
-    ansible.builtin.user:
-      name: "{{ item }}"
-      comment: "{{ item }} account" 
-      uid: 1001
-      state: present
-      password: "{{ password_var }}"
-      group: foo
-      groups:
+    - name: Add user {{ item }}
+      ansible.builtin.user:
+        name: "{{ item }}"
+        comment: "{{ item }} account" 
+        uid: 1001
+        state: present
+        password: "{{ password_var }}"
+        group: foo
+        groups:
          - wheel
-    loop: "{{ yale_users }}"
+      loop: "{{ yale_users }}"
 
