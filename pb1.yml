@@ -34,5 +34,5 @@ tasks:
       group: foo
       groups:
          - wheel
-    with_item: "{{ yale_uses }}"
+    loop: "{{ yale_uses }}"
 
